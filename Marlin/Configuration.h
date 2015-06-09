@@ -27,7 +27,7 @@
 
 //#define STRING_VERSION "1.0.2"
 
-#define STRING_VERSION_CONFIG_H __DATE__ "01/06/2015" __TIME__ // build date and time
+#define STRING_VERSION_CONFIG_H __DATE__ " " __TIME__ // build date and time
 #define STRING_CONFIG_H_AUTHOR "(koomasi, default config)" // Who made the changes.
 
 // SERIAL_PORT selects which serial port should be used for communication with the host.
@@ -159,11 +159,6 @@
   #define K1 0.95 //smoothing factor within the PID
   #define PID_dT ((OVERSAMPLENR * 10.0)/(F_CPU / 64.0 / 256.0)) //sampling period of the temperature routine
 
-// By auto tuning
-    #define  DEFAULT_Kp 46.73
-    #define  DEFAULT_Ki 5.23
-    #define  DEFAULT_Kd 104.32
-
 // If you are using a pre-configured hotend then you can use one of the value sets by uncommenting it
 // Ultimaker
 //    #define  DEFAULT_Kp 22.2
@@ -179,6 +174,11 @@
 //    #define  DEFAULT_Kp 63.0
 //    #define  DEFAULT_Ki 2.25
 //    #define  DEFAULT_Kd 440
+
+// By auto tuning for 190 degrees Celsius (M303 S190 C5)
+    #define  DEFAULT_Kp 49.33
+    #define  DEFAULT_Ki 5.42
+    #define  DEFAULT_Kd 112.13
 #endif // PIDTEMP
 
 // Bed Temperature Control
@@ -204,9 +204,9 @@
 #ifdef PIDTEMPBED
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from FOPDT model - kp=.39 Tp=405 Tdead=66, Tc set to 79.2, aggressive factor of .15 (vs .1, 1, 10)
-    #define  DEFAULT_bedKp 10.00
-    #define  DEFAULT_bedKi .023
-    #define  DEFAULT_bedKd 305.4
+//    #define  DEFAULT_bedKp 10.00
+//    #define  DEFAULT_bedKi .023
+//    #define  DEFAULT_bedKd 305.4
 
 //120v 250W silicone heater into 4mm borosilicate (MendelMax 1.5+)
 //from pidautotune
@@ -215,7 +215,12 @@
 //    #define  DEFAULT_bedKd 1675.16
 
 // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
-#endif // PIDTEMPBED
+
+// By auto tuning for 60 degrees Celsius (M303 E-1 C8 S60)
+    #define  DEFAULT_bedKp 252.29
+    #define  DEFAULT_bedKi 26.32
+    #define  DEFAULT_bedKd 604.51
+ #endif // PIDTEMPBED
 
 
 
@@ -485,8 +490,8 @@ const bool Z_MAX_ENDSTOP_INVERTING = true; // set to true to invert the logic of
 
 // default settings
 
-  #define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,4000,760*1.1}  // default steps per unit for Ultimaker
-#define DEFAULT_MAX_FEEDRATE          {500, 500, 1, 25}    // (mm/sec)
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   {78.7402,78.7402,4000,650}  // default steps per unit for Ultimaker
+#define DEFAULT_MAX_FEEDRATE          {500, 500, 2, 25}    // (mm/sec)
 #define DEFAULT_MAX_ACCELERATION      {9000,9000,100,10000}    // X, Y, Z, E maximum start speed for accelerated moves. E default values are good for Skeinforge 40+, for older versions raise them a lot.
 
 #define DEFAULT_ACCELERATION          3000    // X, Y, Z and E max acceleration in mm/s^2 for printing moves
